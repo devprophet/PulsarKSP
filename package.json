@@ -18,5 +18,10 @@
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^3.0.0"
+  },
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "mongodb": "^3.1.6",
+    "showdown": "^1.8.6"
   }
 }

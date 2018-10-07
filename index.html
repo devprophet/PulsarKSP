@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
+    <head>
+        <meta charset="UTF-8">
+        <title>Pulsar</title>
+        <link href="style.css" rel="stylesheet">
+        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="./core.js"></script>
+        <script src="./renderer.js"></script>
 
-    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-    </script>
-  </body>
+        <!-- Insert this line after script imports -->
+        <script>if (window.module) module = window.module;</script>
+
+    </head>
+    <body>
+        <div class="top-bar"></div>
+        <div class="side-bar">
+            <div class="side-bar-content">
+
+                <img src="Img/Logo.png" width="180">
+                <!-- Left menu content here... loading from Javascript -->
+            </div>
+        </div>
+        <div class="content">
+            <!-- The content of the right blank frame here... load from Javascript-->
+        </div>
+    </body>
 </html>
