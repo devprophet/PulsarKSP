@@ -17,11 +17,12 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^3.0.0"
+    "electron": "^3.0.3"
   },
   "dependencies": {
     "jquery": "^3.3.1",
     "mongodb": "^3.1.6",
-    "showdown": "^1.8.6"
+    "showdown": "^1.8.6",
+    "spin.js": "^4.0.0"
   }
 }

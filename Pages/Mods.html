@@ -1,38 +1,10 @@
+<script>
 
-<input type="text" placeholder="Mod name, categorie, etc...">
+    var searchBar = new PSSearchBar()
+    var builder = searchBar.Build('Hello world', (element, content) => { console.log('content : ' + content)} )
+    $('.content').append(builder)
 
-<div class="description">
-    <h1>Kopernicus</h1>
-    <span class="version">v1.14</span>
-    <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique infor...</p>
-    
-    <a href="#" class="button orange">Install</a>
-    <a href="#" class="button gray">View more</a>
-</div>
+    var spinner = new Spinner().spin();
+    $('.content').append(spinner.el);
 
-<div class="description">
-    <h1>KSPNET</h1>
-    <span class="version">v1.14</span>
-    <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique infor...</p>
-    
-    <a href="#" class="button orange">Install</a>
-    <a href="#" class="button gray">View more</a>
-</div>
-
-<div class="description">
-    <h1>Kopernicus</h1>
-    <span class="version">v1.14</span>
-    <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique infor...</p>
-    
-    <a href="#" class="button orange">Install</a>
-    <a href="#" class="button gray">View more</a>
-</div>
-
-<div class="description">
-    <h1>KSPNET</h1>
-    <span class="version">v1.14</span>
-    <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique infor...</p>
-    
-    <a href="#" class="button orange">Install</a>
-    <a href="#" class="button gray">View more</a>
-</div>
+</script>

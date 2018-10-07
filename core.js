@@ -1,16 +1,16 @@
-
+/*
 // Pour la base de donnés
-var MongoClient = require('mongodb').MongoClient
+let MongoClient = require('mongodb').MongoClient
 
 // Pour la convertion markdown -> HTML
-var Showdown = require('showdown')
+let Showdown = require('showdown')
 
 // Le convertisseur MD -> HTML
-var ShowdownConverter = new Showdown.Converter()
+let ShowdownConverter = new Showdown.Converter()
 
 // L'url de la base de donné
-var uri = "mongodb+srv://" + escape('alex-sb') + ":" + escape('RiZaZXc630TzSD7T') + "@cluster0-woa89.gcp.mongodb.net/KSPModManagerDB";
-
+let uri = "mongodb+srv://" + escape('alex-sb') + ":" + escape('RiZaZXc630TzSD7T') + "@cluster0-woa89.gcp.mongodb.net/KSPModManagerDB";
+*/
 /**
  * 
  * @param {string} Title Le titre de la categorie.

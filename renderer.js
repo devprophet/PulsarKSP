@@ -1,5 +1,5 @@
 
-class MenuElement {
+class PSMenuElement {
 
     constructor(options) {
         this.element = document.createElement('a')
@@ -31,7 +31,7 @@ class MenuElement {
 
         this.element.onclick = () => {
             this.MakeSelected()
-            this.Onclick()
+            this.OnClick()
         }
 
         if('page' in options) {
@@ -59,10 +59,10 @@ class MenuElement {
         return this.element
     }
 
-    MakeSelected() {
+    MakeSelected( OnComplete ) {
         this.selected = !this.selected
         this.Select(this.OnArrayRequest())
-        $('.content').load(this.pageUrl)
+        $('.content').load(this.pageUrl, OnComplete)
     }
 
     Select(other) {
@@ -78,19 +78,7 @@ class MenuElement {
     }
 }
 
-class Mod {
-    /*
-
-    <div class="description">
-        <h1>Kopernicus</h1>
-        <span class="version">v1.14</span>
-        <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique infor...</p>
-        
-        <a href="#" class="button orange">Install</a>
-        <a href="#" class="button gray">View more</a>
-    </div>
-
-    */
+class PSMod {
     constructor(options) {
 
         // ----------------
@@ -128,28 +116,136 @@ class Mod {
         } else {
             this.downloadLink = 'none'
         }
+        
+        // ----------------
+        // La version de KSP compatible avec le mod
+        // ----------------
+        if('versionKSP' in options) {
+            this.versionKSP = options.versionKSP
+        } else {
+            this.versionKSP = '0.0'
+        }
+
+    }
+
+    /**
+     * Convertie l'object en code html et l'ajoute directement
+     * @param {string} buildMod peut prendre la valeur `"short"` pour la description courte et `"long"` pour la description longue
+     * @returns {HTMLDivElement} L'élément html construit
+     */
+    Build(buildMod) {
+        if(buildMod === 'short') {
+            var element = document.createElement('div')
+            element.setAttribute('class', 'description')
+
+            var title = document.createElement('h1')
+            title.innerText = this.title
+
+            var version = document.createElement('span')
+            version.setAttribute('class', 'version')
+            version.innerText = this.versionKSP
+
+            var description = document.createElement('p')
+            description.innerText = this.shortDescription
+
+            var download = document.createElement('a')
+            download.setAttribute('class', 'button orange')
+            download.innerText = 'Install'
+
+            var more = document.createElement('a')
+            more.setAttribute('class', 'button gray')
+            more.innerText = 'View more'
+
+            element.appendChild(title)
+            element.appendChild(version)
+            element.appendChild(description)
+            element.appendChild(download)
+            element.appendChild(more)
+
+            return element
+        }
     }
 }
 
+class PSSearchBar {
+
+    // <input type="text" placeholder="Mod name, categorie, etc...">
+    /**
+     * 
+     * @param {string} placeholder Le text qui et marquer dans la searchbar
+     * @param {function(Element, string)} OnInputChange Appelle cette fonction lorsque l'utilisateur appuie sur une touche.
+     * @returns {HTMLDivElement} La search bar
+     */
+    Build(placeholder, OnInputChange) {
+        let element = document.createElement('input')
+        element.setAttribute('type', 'text')
+        element.setAttribute('placeholder', placeholder == null || placeholder == '' ? 'no placeholder' : placeholder)
+        element.oninput = (e) =>{
+            // console.log(e.srcElement.value)
+            if(OnInputChange != null) {
+                OnInputChange(e.srcElement, e.srcElement.value)
+            }
+        }
+        return element;
+    }
+
+}
+
 var menuElements = [
-    new MenuElement({
+    new PSMenuElement({
         title: 'Mods', 
         page: '/Pages/Mods.html'
     }),
 
-    new MenuElement({
+    new PSMenuElement({
         title: 'Installed', 
         page: '/Pages/Installed.html',
         badge: '180'
     }),
 
-    new MenuElement({
+    new PSMenuElement({
         title: 'Settings', 
         page: '/Pages/Settings.html'
     })
 ]
 
+let mod = new PSMod(
+    {
+        title: 'Je suis un titre',
+        shortDescription: 'Je suis une description courte',
+        completeDescription: 'Je suis une description complete du mod',
+        downloadLink: 'http://www.google.fr/',
+        versionKSP: '1.14',
+        Author: 'Alexis'
+    }
+)
+
+// Pour la base de donnés
+let MongoClient = require('mongodb').MongoClient
+
+// Pour la convertion markdown -> HTML
+let Showdown = require('showdown')
+
+// Le convertisseur MD -> HTML
+let ShowdownConverter = new Showdown.Converter()
+
+// L'url de la base de donné
+let uri = "mongodb+srv://" + escape('alex-sb') + ":" + escape('RiZaZXc630TzSD7T') + "@cluster0-woa89.gcp.mongodb.net/KSPModManagerDB";
+
+
 $(document).ready(function(){
+
+    MongoClient.connect(uri, { useNewUrlParser: true }, (err, client) => {
+        if(err) throw err
+        console.log('Connected to the DB!')
+        
+        client.db('KSPMMApp').collection('Mods').find().forEach((e) => {
+            console.log(e)
+        })
+
+        client.close()
+        console.log('Close DB connection')
+    })
 
     // Initialise les éléments du menu de gauche
     menuElements.forEach( (x) => {
@@ -158,6 +254,9 @@ $(document).ready(function(){
     })
 
     // Selectionne le premier elements du menu de gauche
-    menuElements[0].MakeSelected()
+    menuElements[0].MakeSelected( () => {
+        
+        /* on peut ajouter des elements ici... */
+    })
 
 });
